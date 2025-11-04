@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>告白弹窗 💕</title>
+<style>
+  body {
+    font-family: "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  .chat-container {
+    width: 90%;
+    max-width: 400px;
+    height: 70%;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .bubble {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 18px;
+    margin: 6px 0;
+    word-wrap: break-word;
+    animation: fadeIn 0.5s ease;
+  }
+
+  .left {
+    align-self: flex-start;
+    background: #fff;
+    color: #333;
+    border-bottom-left-radius: 4px;
+  }
+
+  .right {
+    align-self: flex-end;
+    background: #ff6f91;
+    color: white;
+    border-bottom-right-radius: 4px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .btn {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background-color: #ff4081;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .btn:hover {
+    background-color: #ff1e6b;
+    transform: scale(1.05);
+  }
+</style>
+</head>
+<body>
+  <div class="chat-container" id="chat"></div>
+  <button class="btn" id="nextBtn">💌 开启告白</button>
+
+<script>
+const messages = [
+  "嗨～我有件小事想和你说💕",
+  "其实每次看到你，我的世界就亮了🌟",
+  "你的笑，像是冬天里的一杯热奶茶☕",
+  "我总是会莫名其妙地想起你，然后傻笑😳",
+  "可能我就是……喜欢上你了💗",
+  "愿意做我生命里的那道光吗？💞"
+];
+
+let index = 0;
+const chat = document.getElementById('chat');
+const btn = document.getElementById('nextBtn');
+
+btn.addEventListener('click', () => {
+  if (index < messages.length) {
+    const bubble = document.createElement('div');
+    bubble.classList.add('bubble');
+    bubble.classList.add(index % 2 === 0 ? 'left' : 'right');
+    bubble.textContent = messages[index];
+    chat.appendChild(bubble);
+    chat.scrollTop = chat.scrollHeight; // 自动滚动到底部
+    index++;
+    if (index === messages.length) btn.textContent = "💖 再看一遍";
+  } else {
+    // 重新播放
+    chat.innerHTML = '';
+    index = 0;
+    btn.textContent = "💌 开启告白";
+  }
+});
+</script>
+</body>
+</html>
